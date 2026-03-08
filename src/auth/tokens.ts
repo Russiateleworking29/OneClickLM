@@ -1,3 +1,10 @@
+/**
+ * Token extraction and management for NotebookLM.
+ *
+ * Extracts SNlM0e (CSRF), FdrFJe (session ID), and build_label from
+ * the NotebookLM page HTML. These are required for all API calls.
+ */
+
 import { readFile, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
@@ -7,8 +14,9 @@ import { TokenError } from "../utils/errors.js";
 import { loadCookies, getCookieHeader, ensureConfigDir } from "./cookies.js";
 
 export interface Tokens {
-  buildLabel: string;
-  csrfToken: string;
+  csrfToken: string;   // SNlM0e
+  sessionId: string;   // FdrFJe
+  buildLabel: string;  // boq_labs-tailwind-frontend_YYYYMMDD...
   updatedAt: string;
 }
 
@@ -21,7 +29,7 @@ export async function saveTokens(tokens: Tokens): Promise<void> {
   await ensureConfigDir();
   const path = getTokensPath();
   await writeFile(path, JSON.stringify(tokens, null, 2), "utf-8");
-  logger.info("Saved tokens");
+  logger.info("Tokens saved");
 }
 
 export async function loadTokens(): Promise<Tokens | null> {
@@ -35,7 +43,34 @@ export async function loadTokens(): Promise<Tokens | null> {
   }
 }
 
-export async function extractTokensFromPage(cookies?: import("./cookies.js").CookieData[]): Promise<Tokens> {
+function extractCsrfToken(html: string): string {
+  const match = html.match(/"SNlM0e"\s*:\s*"([^"]+)"/);
+  if (match) return match[1];
+  throw new TokenError(
+    "CSRF token (SNlM0e) not found in NotebookLM page.",
+    "Your cookies may be expired. Run \"npx oneclicklm login\" to re-authenticate."
+  );
+}
+
+function extractSessionId(html: string): string {
+  const match = html.match(/"FdrFJe"\s*:\s*"([^"]+)"/);
+  if (match) return match[1];
+  logger.warn("Session ID (FdrFJe) not found. Continuing without it.");
+  return "";
+}
+
+function extractBuildLabel(html: string): string {
+  const match = html.match(/(boq_labs-tailwind-frontend_\d{8}\.\d+_p\d+)/);
+  if (match) return match[1];
+  const altMatch = html.match(/"build_label"\s*:\s*"([^"]+)"/);
+  if (altMatch) return altMatch[1];
+  logger.warn("build_label not found. Using empty string.");
+  return "";
+}
+
+export async function extractTokensFromPage(
+  cookies?: import("./cookies.js").CookieData[]
+): Promise<Tokens> {
   if (!cookies) {
     cookies = (await loadCookies()) ?? undefined;
   }
@@ -44,7 +79,6 @@ export async function extractTokensFromPage(cookies?: import("./cookies.js").Coo
   }
 
   const cookieHeader = getCookieHeader(cookies);
-
   logger.info("Fetching NotebookLM page to extract tokens...");
 
   const res = await fetch("https://notebooklm.google.com/", {
@@ -63,56 +97,29 @@ export async function extractTokensFromPage(cookies?: import("./cookies.js").Coo
     );
   }
 
+  const finalUrl = res.url;
   const html = await res.text();
 
-  // Extract build_label from the page HTML
-  // It appears in a script tag as something like: "build_label":"cl/XXXXXXXX"
-  const buildLabelMatch = html.match(/"build_label"\s*:\s*"([^"]+)"/);
-  if (!buildLabelMatch) {
-    // Try alternative pattern
-    const altMatch = html.match(/build_label['"]\s*[:,]\s*['"](cl\/\d+)['"]/);
-    if (!altMatch) {
-      throw new TokenError(
-        "Could not extract build_label from NotebookLM page.",
-        "Google may have changed their page structure. Please open an issue at https://github.com/bravomylife-lab/OneClickLM/issues"
-      );
-    }
-    var buildLabel = altMatch[1];
-  } else {
-    var buildLabel = buildLabelMatch[1];
+  if (
+    finalUrl.includes("accounts.google.com") ||
+    html.includes("accounts.google.com/signin")
+  ) {
+    throw new TokenError(
+      "Authentication expired — redirected to Google login.",
+      "Run \"npx oneclicklm login\" to re-authenticate."
+    );
   }
 
-  // Extract CSRF token (usually from a meta tag or embedded in the page)
-  // Google uses SNlM0e as the CSRF token name
-  const csrfMatch = html.match(/SNlM0e['"]\s*[:,]\s*['"](.*?)['"]/);
-  let csrfToken: string;
-  if (csrfMatch) {
-    csrfToken = csrfMatch[1];
-  } else {
-    // Try extracting from AT value in WIZ_global_data
-    const atMatch = html.match(/\"AT\"\s*:\s*\"([^\"]+)\"/);
-    if (atMatch) {
-      csrfToken = atMatch[1];
-    } else {
-      // Fallback: extract any token-like value from the page
-      const wizMatch = html.match(/WIZ_global_data\s*=\s*\{[^}]*"token"\s*:\s*"([^"]+)"/);
-      if (wizMatch) {
-        csrfToken = wizMatch[1];
-      } else {
-        throw new TokenError(
-          "Could not extract CSRF token from NotebookLM page.",
-          "Google may have changed their page structure. Please open an issue."
-        );
-      }
-    }
-  }
+  const csrfToken = extractCsrfToken(html);
+  const sessionId = extractSessionId(html);
+  const buildLabel = extractBuildLabel(html);
 
-  logger.info(`Extracted build_label: ${buildLabel}`);
-  logger.debug(`Extracted CSRF token: ${csrfToken.substring(0, 10)}...`);
+  logger.info(`Extracted tokens: CSRF=${csrfToken.substring(0, 10)}..., bl=${buildLabel}`);
 
   const tokens: Tokens = {
-    buildLabel,
     csrfToken,
+    sessionId,
+    buildLabel,
     updatedAt: new Date().toISOString(),
   };
 
@@ -121,18 +128,14 @@ export async function extractTokensFromPage(cookies?: import("./cookies.js").Coo
 }
 
 export async function getValidTokens(): Promise<Tokens> {
-  // First try to load saved tokens
   let tokens = await loadTokens();
   if (tokens) {
     const age = Date.now() - new Date(tokens.updatedAt).getTime();
-    // If tokens are less than 1 hour old, use them
     if (age < 60 * 60 * 1000) {
       logger.debug("Using cached tokens");
       return tokens;
     }
-    logger.info("Tokens are stale, refreshing...");
+    logger.info("Tokens stale, refreshing...");
   }
-
-  // Extract fresh tokens
   return extractTokensFromPage();
 }
