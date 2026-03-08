@@ -23,11 +23,11 @@
     "claude",
     "cursor"
   ],
-  "author": "bravomylife-lab",
+  "author": "CRtheHILLS",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bravomylife-lab/OneClickLM.git"
+    "url": "https://github.com/CRtheHILLS/OneClickLM.git"
   },
   "engines": {
     "node": ">=18.0.0"

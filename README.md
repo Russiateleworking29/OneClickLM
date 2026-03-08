@@ -12,7 +12,7 @@
 <p align="center">
   <a href="https://www.npmjs.com/package/oneclicklm"><img src="https://img.shields.io/npm/v/oneclicklm?style=flat-square&color=cb3837" alt="npm" /></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="License" /></a>
-  <a href="https://github.com/bravomylife-lab/OneClickLM/stargazers"><img src="https://img.shields.io/github/stars/bravomylife-lab/OneClickLM?style=flat-square&color=yellow" alt="Stars" /></a>
+  <a href="https://github.com/CRtheHILLS/OneClickLM/stargazers"><img src="https://img.shields.io/github/stars/CRtheHILLS/OneClickLM?style=flat-square&color=yellow" alt="Stars" /></a>
   <a href="https://smithery.ai/server/oneclicklm"><img src="https://img.shields.io/badge/Smithery-Registry-purple?style=flat-square" alt="Smithery" /></a>
 </p>
 
@@ -30,7 +30,7 @@
 
 I built OneClickLM because I was tired of every NotebookLM MCP server breaking on me every few days.
 
-After connecting NotebookLM to a **6-domain AI chatbot platform** ([BEYOND HUMAN](https://github.com/bravomylife-lab/beyond-human)), I hit literally every failure mode — expired tokens, Chrome crashes, concurrent query timeouts, you name it. So I built the tool I wished existed.
+After connecting NotebookLM to a **6-domain AI chatbot platform** ([BEYOND HUMAN](https://github.com/CRtheHILLS/beyond-human)), I hit literally every failure mode — expired tokens, Chrome crashes, concurrent query timeouts, you name it. So I built the tool I wished existed.
 
 **OneClickLM just works.** Login once, forget about it forever.
 
@@ -318,7 +318,7 @@ This verifies cookies, extracts fresh tokens, and tells you if anything is wrong
 Contributions welcome! Bug reports, feature requests, and PRs are all appreciated.
 
 ```bash
-git clone https://github.com/bravomylife-lab/OneClickLM.git
+git clone https://github.com/CRtheHILLS/OneClickLM.git
 cd OneClickLM
 npm install
 npm run build
@@ -332,8 +332,8 @@ node dist/src/index.js  # Run locally
 If OneClickLM saved you from NotebookLM auth hell, consider starring the repo!
 
 <p align="center">
-  <a href="https://star-history.com/#bravomylife-lab/OneClickLM&Date">
-    <img src="https://api.star-history.com/svg?repos=bravomylife-lab/OneClickLM&type=Date" width="600" alt="Star History" />
+  <a href="https://star-history.com/#CRtheHILLS/OneClickLM&Date">
+    <img src="https://api.star-history.com/svg?repos=CRtheHILLS/OneClickLM&type=Date" width="600" alt="Star History" />
   </a>
 </p>
 
@@ -341,11 +341,11 @@ If OneClickLM saved you from NotebookLM auth hell, consider starring the repo!
 
 ## License
 
-MIT © [bravomylife-lab](https://github.com/bravomylife-lab)
+MIT © [CRtheHILLS](https://github.com/CRtheHILLS)
 
 ---
 
 <p align="center">
   <sub>Built with frustration, fixed with determination. 🔥</sub><br>
-  <sub>Born from <a href="https://github.com/bravomylife-lab/beyond-human">BEYOND HUMAN</a> — a 6-domain AI chatbot platform powered by NotebookLM.</sub>
+  <sub>Born from <a href="https://github.com/CRtheHILLS/beyond-human">BEYOND HUMAN</a> — a 6-domain AI chatbot platform powered by NotebookLM.</sub>
 </p>
